@@ -1,0 +1,96 @@
+{
+  "_doc": "行业接入第四件套 · 隐私声明。缺失本文件或 const 字段不符，符合性校验直接失败。",
+  "profile_version": "privacy/1.0",
+  "data_controller": {
+    "org": "待认领 — 由本域运营方填注",
+    "contact": "待认领",
+    "dpo": "待认领（达量时必设）"
+  },
+  "data_categories": [
+    {
+      "attr_keys": [
+        "aero.airworthiness_status",
+        "aero.maintenance_org_approval",
+        "aero.released_to_service",
+        "aero.personnel_license",
+        "aero.flight_authorization"
+      ],
+      "purpose": "核验本域属性声明的真实性并据此给出义务提示，不作他用",
+      "legal_basis": "consent",
+      "sensitivity": "normal",
+      "retention_days": 365,
+      "retention_expiry_action": "hard-delete",
+      "default_state": "off",
+      "consent": {
+        "required": true,
+        "granular": true,
+        "withdrawable": true,
+        "service_not_conditioned": true,
+        "reconsent_on_change": true
+      },
+      "cross_border": false
+    }
+  ],
+  "sharing": {
+    "enabled": false,
+    "requires_separate_consent": true,
+    "recipients_listed": false
+  },
+  "minimization": {
+    "collection_default": "off",
+    "purpose_limitation": true,
+    "scope_note": "仅启用本域清单内声明的属性，不额外采集"
+  },
+  "rights": {
+    "access": true,
+    "rectification": true,
+    "erasure": true,
+    "portability": true,
+    "restriction": true,
+    "explanation": true,
+    "response_sla_days": 15,
+    "channel": "待认领"
+  },
+  "deletion": {
+    "self_serve": true,
+    "sla_days": 3,
+    "mechanism": "hard-delete",
+    "on_withdrawal": true,
+    "on_account_closure": "hard-delete"
+  },
+  "cross_border": {
+    "enabled": false,
+    "mechanism": "none",
+    "separate_consent": false,
+    "recipient_disclosed": false
+  },
+  "automated_decision": {
+    "used": false,
+    "transparency": true,
+    "human_review_available": true,
+    "no_price_discrimination": true
+  },
+  "impact_assessment": {
+    "required": false,
+    "report_retention_days": 1095
+  },
+  "audit": {
+    "interval_months": 24,
+    "third_party": false
+  },
+  "data_classification": {
+    "touches_important_data": false,
+    "standard": "GB/T 43697-2024",
+    "annual_risk_assessment": false
+  },
+  "minors": {
+    "may_involve": false,
+    "guardian_consent": false,
+    "dedicated_rules": false
+  },
+  "breach": {
+    "notify_hours": 48,
+    "channel": "待认领",
+    "notify_regulator": true
+  }
+}

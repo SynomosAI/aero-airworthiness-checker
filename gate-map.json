@@ -1,0 +1,44 @@
+{
+  "_instructions": "本域「什么动作要多少摩擦」。default 必须显式声明；red_lines 每一条都必须在此有对应规则。",
+  "profile_version": "gate/1.0",
+  "default": "warn",
+  "rules": [
+    {
+      "action_class": "attribute.read.own",
+      "gate": "silent",
+      "reason": "查看自己的属性不设摩擦"
+    },
+    {
+      "action_class": "conclusion.professional",
+      "gate": "require-owner",
+      "reason": "本域不下专业结论，须持有人本人授权",
+      "evidence_required": [
+        "human_review.done"
+      ]
+    },
+    {
+      "action_class": "publish.public.raw",
+      "gate": "block",
+      "reason": "公域只发去敏件，对应本域第一条红线",
+      "evidence_required": [
+        "desens_scan.passed"
+      ]
+    },
+    {
+      "action_class": "data.export.cross_border",
+      "gate": "block",
+      "reason": "未脱敏数据不出境"
+    },
+    {
+      "action_class": "advice.client_facing",
+      "gate": "block",
+      "reason": "本域不生成面向客户/监管的结论性意见，对应本域第二条红线"
+    },
+    {
+      "action_class": "claim.compliance",
+      "gate": "block",
+      "reason": "不得输出「已合规」类结论，对应本域第三条红线"
+    }
+  ],
+  "notes": "五级词汇表见平台骨架 skeleton/gate.levels.json。修改任一红线须同步本文件并重新校验。"
+}

@@ -1,0 +1,91 @@
+{
+  "_comment": "本域检查器（MCP 工具）的输入输出契约。检查器只有一个动作：出示与核验。没有「判定」这个选项。",
+  "tool": {
+    "name": "aero_checker",
+    "description": "出示并核验航空航天 · 适航与维修资质域属性的出处链（由谁签发 / 是否在有效期内 / 证据在哪）。仅出示与核验，不构成专业结论。",
+    "input_schema": {
+      "type": "object",
+      "required": [
+        "subject_ref",
+        "attribute_keys"
+      ],
+      "properties": {
+        "subject_ref": {
+          "type": "string",
+          "description": "护照标识。"
+        },
+        "attribute_keys": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "请求核验的属性 key，须在 domain.manifest.json 中已声明。"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "调用方提供的证据引用（证书编号 / 文件指纹 / 许可文号）。"
+        },
+        "request_id": {
+          "type": "string",
+          "description": "幂等键。"
+        }
+      }
+    }
+  },
+  "example_input": {
+    "subject_ref": "mpp:cn:9f2c1a7b",
+    "attribute_keys": [
+      "aero.airworthiness_status",
+      "aero.maintenance_org_approval"
+    ],
+    "evidence": [
+      "tsa:2026-09-12#sha256:3b1f..."
+    ],
+    "request_id": "req-20260912-0001"
+  },
+  "example_output": {
+    "results": [
+      {
+        "key": "aero.airworthiness_status",
+        "status": "shown",
+        "value": "valid",
+        "issuer": "<签发方，由本域运营方填注>",
+        "issued_at": "2026-09-12",
+        "expires_at": "<按 ttl_days 推算>",
+        "assurance": "verified",
+        "proof_ref": "tsa:2026-09-12#sha256:3b1f..."
+      },
+      {
+        "key": "aero.maintenance_org_approval",
+        "status": "unverifiable",
+        "value": null,
+        "issuer": null,
+        "issued_at": null,
+        "expires_at": null,
+        "assurance": null,
+        "proof_ref": null
+      }
+    ],
+    "disclaimers": [
+      "本结果仅出示与核验属性的出处链，不构成对主体资质或事项合规性的专业结论。",
+      "结论权归本域资质方、监管方与持有人本人。"
+    ],
+    "request_id": "req-20260912-0001"
+  },
+  "_status_vocabulary": {
+    "shown": "属性存在，出处链完整且在有效期内",
+    "missing": "声明中无此属性",
+    "expired": "属性存在但已过有效期",
+    "unverifiable": "属性存在但无法验证出处（缺签发方 / 缺证据）"
+  },
+  "_forbidden_outputs": [
+    "合格 / 不合格",
+    "符合 / 不符合监管要求",
+    "建议批准 / 建议驳回",
+    "已合规 / 监管已认可",
+    "任何形式的专业性判定结论"
+  ]
+}

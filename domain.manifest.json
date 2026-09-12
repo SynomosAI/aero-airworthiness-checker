@@ -1,0 +1,89 @@
+{
+  "_instructions": "本文件是行业接入四件套之一。域 ID 一经分配不复用。填完跑平台侧校验器自测。",
+  "profile_version": "domain/1.0",
+  "domain_id": "aero",
+  "domain_name": "航空航天 · 适航与维修资质",
+  "operator": {
+    "org": "待认领 — 本域开放给具备资质的运营方",
+    "contact": "见 README 的「认领方式」",
+    "agent_card": "https://SynomosAI.github.io/.well-known/agent-card.json"
+  },
+  "attributes": [
+    {
+      "key": "aero.airworthiness_status",
+      "type": "enum",
+      "values": [
+        "valid",
+        "suspended",
+        "revoked",
+        "expired",
+        "pending",
+        "not_required"
+      ],
+      "issuer_required": true,
+      "ttl_days": 365,
+      "assurance_min": "verified",
+      "visibility_default": "private"
+    },
+    {
+      "key": "aero.maintenance_org_approval",
+      "type": "enum",
+      "values": [
+        "approved",
+        "limited",
+        "unapproved",
+        "not_applicable"
+      ],
+      "issuer_required": true,
+      "ttl_days": 365,
+      "assurance_min": "verified",
+      "visibility_default": "private"
+    },
+    {
+      "key": "aero.released_to_service",
+      "type": "boolean",
+      "issuer_required": true,
+      "ttl_days": 180,
+      "assurance_min": "verified",
+      "visibility_default": "private"
+    },
+    {
+      "key": "aero.personnel_license",
+      "type": "enum",
+      "values": [
+        "valid",
+        "expired",
+        "suspended",
+        "not_applicable"
+      ],
+      "issuer_required": true,
+      "ttl_days": 365,
+      "assurance_min": "verified",
+      "visibility_default": "private"
+    },
+    {
+      "key": "aero.flight_authorization",
+      "type": "enum",
+      "values": [
+        "authorized",
+        "pending",
+        "denied",
+        "not_applicable"
+      ],
+      "issuer_required": true,
+      "ttl_days": 90,
+      "assurance_min": "verified",
+      "visibility_default": "private"
+    }
+  ],
+  "checker_endpoint": "mcp://pending-claim/aero-checker",
+  "gate_map_ref": "./gate-map.json",
+  "privacy_ref": "./privacy.json",
+  "red_lines": [
+    "适航状态以适航证件与审定部门结论为准，AI 不得自行认定",
+    "不得输出适航合格、可放行或可执行飞行任务的放行类表述，放行须由授权人员签署",
+    "不得生成或代拟维修放行签署、适航证件或飞行任务批准文件"
+  ],
+  "valid_from": "2026-09-12",
+  "status": "RESERVED"
+}
