@@ -1,0 +1,50 @@
+# aero-airworthiness-checker — 完整文本
+
+本文件为 llms.txt 标准的「完整版」，供长上下文模型一次性读取本仓的完整说明。
+
+## 这是什么
+
+`aero-airworthiness-checker` 是 SynomosAI 平台的一个行业接入域声明仓（domain id `aero`，profile `domain/1.0`，当前状态 `RESERVED`，占位时间 2026-09-12）。它把「这架航空器适不适航、维修单位有没有资质」拆成可核验的属性，让 AI 只做提示，不下放行结论。
+
+一句话：航空器适航状态 / 维修单位批准 / 放行签署的出处链核验，checker 只出示、不下适航或放行结论。
+
+## 解决什么问题
+
+1. 适航是航空安全底线，证件、维修单位批准、放行签署、人员执照环环相扣。
+2. AI 容易越权替人下「适航合格 / 可放行 / 可飞行」结论——本仓用红线 + gate-map 把这种输出挡掉。
+3. 适航状态必须以适航证件与审定部门结论为准，不能 AI 自定。
+
+## 属性（5 个）
+
+- `aero.airworthiness_status`：valid/suspended/revoked/expired/pending/not_required
+- `aero.maintenance_org_approval`：approved/limited/unapproved/not_applicable
+- `aero.released_to_service`（boolean）：维修后是否已完成放行签署（持照人员）
+- `aero.personnel_license`：valid/expired/suspended/not_applicable
+- `aero.flight_authorization`：authorized/pending/denied/not_applicable
+
+## 红线（3 条，机器可读，gate-map 各有阻断规则）
+
+1. 适航状态以适航证件与审定部门结论为准，AI 不得自行认定。
+2. 不得输出适航合格、可放行或可执行飞行任务的放行表述，放行须由授权人员签署。
+3. 不得生成或代拟维修放行签署、适航证件或飞行任务批准文件。
+
+## 快速开始
+
+```bash
+git clone https://github.com/SynomosAI/aero-airworthiness-checker.git
+cd aero-airworthiness-checker
+python -m json.tool domain.manifest.json > /dev/null   # 校验 JSON 合法
+```
+
+## 触发词
+
+航空器适航证 / 维修单位 CCAR-145 批准 / 放行签署 / 维修人员执照 / 飞行任务批准 / 适航状态怎么查（注：本域不下放行结论，只出示出处链）。
+
+## 许可与权利
+
+代码与配置按 MIT 许可使用（见根目录 LICENSE，© 2026 SynomosAI）。文档知识版权归 SynomosAI 所有。checker 输出仅出示与核验属性的出处链，不构成对主体资质或事项合规性的专业结论；结论权归本域审定部门、授权人员与持有人本人。
+
+## 链接
+
+- 仓库: https://github.com/SynomosAI/aero-airworthiness-checker
+- 四件套: domain.manifest.json / gate-map.json / privacy.json / checker.io.json

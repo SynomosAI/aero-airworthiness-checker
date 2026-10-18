@@ -1,0 +1,22 @@
+# aero-airworthiness-checker
+
+> 航空器适航状态、维修单位资质与放行签署核验域（domain id `aero`，profile `domain/1.0`，状态 RESERVED）。
+> 把「航空器适不适航、维修单位有没有资质」拆成可核验属性；checker 只出示与核验，不下放行结论。
+
+`aero-airworthiness-checker` 是 SynomosAI 平台的一个行业接入域声明仓：JSON 四件套（manifest / gate-map / privacy / checker.io）定义「本域管什么属性、什么动作要多少摩擦、隐私怎么收口、核验器如何被调用」。
+
+## Core
+
+- [README.md](https://github.com/SynomosAI/aero-airworthiness-checker/blob/main/README.md): 项目说明、属性清单、红线、快速开始
+- [domain.manifest.json](https://github.com/SynomosAI/aero-airworthiness-checker/blob/main/domain.manifest.json): 域声明（属性 / 签发方要求 / TTL / 红线）
+- [gate-map.json](https://github.com/SynomosAI/aero-airworthiness-checker/blob/main/gate-map.json): 动作摩擦分级（silent/warn/confirm/block/require-owner）
+- [privacy.json](https://github.com/SynomosAI/aero-airworthiness-checker/blob/main/privacy.json): 隐私声明（默认关闭 / 最小必要 / 可撤回可删除）
+- [checker.io.json](https://github.com/SynomosAI/aero-airworthiness-checker/blob/main/checker.io.json): checker MCP 工具 I/O 契约
+
+## Optional
+
+- [README.en.md](https://github.com/SynomosAI/aero-airworthiness-checker/blob/main/README.en.md): English README
+- [AGENTS.md](https://github.com/SynomosAI/aero-airworthiness-checker/blob/main/AGENTS.md): 给 AI Agent 的工作指引
+- [llms-full.txt](https://github.com/SynomosAI/aero-airworthiness-checker/blob/main/llms-full.txt): 完整文本（供长上下文模型）
+- [SECURITY.md](https://github.com/SynomosAI/aero-airworthiness-checker/blob/main/SECURITY.md): 安全策略
+- [LICENSE](https://github.com/SynomosAI/aero-airworthiness-checker/blob/main/LICENSE): MIT License
